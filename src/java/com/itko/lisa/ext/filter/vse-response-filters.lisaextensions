@@ -1,0 +1,11 @@
+# LISA Extensions file
+
+
+##############
+#  Filters   #
+##############
+filters=com.itko.lisa.ext.filter.VseHttpSaveLastResponseForResponderFilter\
+,com.itko.lisa.ext.filter.VseJdbcSaveLastResponseForResponderFilter
+
+com.itko.lisa.ext.filter.VseHttpSaveLastResponseForResponderFilter=com.itko.lisa.editor.FilterController,com.itko.lisa.editor.DefaultFilterEditor
+com.itko.lisa.ext.filter.VseJdbcSaveLastResponseForResponderFilter=com.itko.lisa.editor.FilterController,com.itko.lisa.editor.DefaultFilterEditor

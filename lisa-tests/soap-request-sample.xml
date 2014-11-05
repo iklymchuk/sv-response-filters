@@ -1,0 +1,22 @@
+<?xml version"1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<soapenv:Body>
+		<findCustomerOrderItem
+			xmlns="http://level3/enterprise/service/order/api_v1_3">
+			<context>
+				<source>BPMS</source>
+				<performer>BPMS</performer>
+				<transactionId>1248369245435</transactionId>
+				<contentContext>
+					<originatingSystemIdentification>SIEBEL
+					</originatingSystemIdentification>
+				</contentContext>
+			</context>
+			<orderItemSearchCriteria>
+				<orderNumber>1-529242461</orderNumber>
+				<orderVersionNumber>1</orderVersionNumber>
+			</orderItemSearchCriteria>
+		</findCustomerOrderItem>
+	</soapenv:Body>
+</soapenv:Envelope>

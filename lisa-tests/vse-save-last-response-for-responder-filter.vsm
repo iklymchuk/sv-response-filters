@@ -1,0 +1,110 @@
+<?xml version="1.0" ?>
+
+<VSModel name="vse-save-last-response-for-responder-filter" version="5">
+
+<meta><create version="5.0" buildNumber="5.0.0.461" author="lutherbirdzell" date="09/03/2009" host="rs2.local"  /><lastEdited version="5.0" buildNumber="5.0.0.461" author="lutherbirdzell" date="09/03/2009" host="rs2.local"  /></meta>
+
+<id>5530f749</id>
+<sig>ZWQ9NSZ0Y3Y9LTEmbGlzYXY9NS4wICg1LjAuMC40NjEpJm5vZGVzPS0xMDUxNTY0MDY=</sig>
+<subprocess>false</subprocess>
+
+<initState>
+</initState>
+
+<resultState>
+</resultState>
+
+<Configurations>
+<Configuration>
+<name>default</name>
+<external>false</external>
+<props>
+</props>
+</Configuration>
+</Configurations>
+    <Node name="HTTP Listen" log=""
+          type="com.itko.lisa.vse.stateful.protocol.http.HttpListenStep" 
+          version="1" 
+          think="0" 
+ useFilters="true" 
+ quiet="false" 
+          next="Prepare Response" > 
+
+<remoteServer>local</remoteServer>
+<outputAsObject>false</outputAsObject>
+<onExceptionStep>abort</onExceptionStep>
+<listenPort>8001</listenPort>
+<bindAddress></bindAddress>
+<basePath>/</basePath>
+<bindOnly>false</bindOnly>
+<useSSL>false</useSSL>
+    </Node>
+
+
+    <Node name="Prepare Response" log=""
+          type="com.itko.lisa.test.TestNodeLogger" 
+          version="1" 
+          think="500-1S" 
+ useFilters="true" 
+ quiet="true" 
+          next="HTTP Respond" > 
+
+<remoteServer>local</remoteServer>
+
+      <!-- Filters -->
+      <Filter type="com.itko.lisa.ext.filter.VseSaveLastResponseForResponderFilter">
+        <valueToFilterKey>lisa.Prepare Response.rsp</valueToFilterKey>
+      </Filter>
+
+<log>&lt;test&gt;Response&lt;/test&gt;</log>
+    </Node>
+
+
+    <Node name="HTTP Respond" log=""
+          type="com.itko.lisa.vse.stateful.protocol.http.HttpRespondStep" 
+          version="1" 
+          think="0" 
+ useFilters="true" 
+ quiet="false" 
+          next="HTTP Listen" > 
+
+<remoteServer>local</remoteServer>
+<responseList>lisa.vse.response</responseList>
+<onExceptionStep>abort</onExceptionStep>
+    </Node>
+
+
+    <Node name="end" log=""
+          type="com.itko.lisa.test.NormalEnd" 
+          version="1" 
+          think="0h" 
+ useFilters="true" 
+ quiet="true" 
+          next="fail" > 
+
+    </Node>
+
+
+    <Node name="fail" log=""
+          type="com.itko.lisa.test.Abend" 
+          version="1" 
+          think="0h" 
+ useFilters="true" 
+ quiet="true" 
+          next="abort" > 
+
+    </Node>
+
+
+    <Node name="abort" log=""
+          type="com.itko.lisa.test.AbortStep" 
+          version="1" 
+          think="0h" 
+ useFilters="true" 
+ quiet="true" 
+          next="" > 
+
+    </Node>
+
+
+</VSModel>

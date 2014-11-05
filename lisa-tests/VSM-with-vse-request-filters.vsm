@@ -1,0 +1,260 @@
+<?xml version="1.0" ?>
+
+
+<!-- VS Model created by LISA Test Editor -->
+<!-- On: Wed Sep 02 10:30:16 MDT 2009 -->
+
+
+<VSModel name="VSM-with-vse-request-filters" version="2">
+<id>9b9d5edb</id>
+<Documentation>Put documentation of the VS Model here.</Documentation>
+<sig>ZWQ9NSZ0Y3Y9MiZsaXNhdj00LjYuNSAoNC42LjUuMikmbm9kZXM9LTExNDc1Njc1OTg=</sig>
+<rootNode>HTTP/S Listen</rootNode>
+<initState>
+</initState>
+
+<resultState>
+    <Parameter>
+    <key>lisa.HTTP/S Listen.rsp</key>
+    <value>Set in Step HTTP/S Listen</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.HTTP/S Listen.rsp.time</key>
+    <value>Set in Step HTTP/S Listen</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.vse.http.current.transaction</key>
+    <value>Set in Step HTTP/S Listen</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.fail.rsp</key>
+    <value>Set in Step fail</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.fail.rsp.time</key>
+    <value>Set in Step fail</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.Prepare Request.rsp</key>
+    <value>Set in Step Prepare Request</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.Prepare Request.rsp.time</key>
+    <value>Set in Step Prepare Request</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.Response Selection.rsp</key>
+    <value>Set in Step Response Selection</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.Response Selection.rsp.time</key>
+    <value>Set in Step Response Selection</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.Prepare Response.rsp</key>
+    <value>Set in Step Prepare Response</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.Prepare Response.rsp.time</key>
+    <value>Set in Step Prepare Response</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.HTTP/S Respond.rsp</key>
+    <value>Set in Step HTTP/S Respond</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.HTTP/S Respond.rsp.time</key>
+    <value>Set in Step HTTP/S Respond</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.HTTP/S Respond - filter.rsp</key>
+    <value>Set in Step HTTP/S Respond - filter</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.HTTP/S Respond - filter.rsp.time</key>
+    <value>Set in Step HTTP/S Respond - filter</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.Prepare Response-filter.rsp</key>
+    <value>Set in Step Prepare Response-filter</value>
+    </Parameter>
+    <Parameter>
+    <key>lisa.Prepare Response-filter.rsp.time</key>
+    <value>Set in Step Prepare Response-filter</value>
+    </Parameter>
+</resultState>
+
+<Configurations>
+<Configuration>
+<name>default</name>
+<external>false</external>
+<props>
+</props>
+</Configuration>
+</Configurations>
+    <Node name="HTTP/S Listen" log=""
+          type="com.itko.lisa.vse.stateful.protocol.http.HttpListenStep" 
+          version="1" 
+          think="0-0" 
+ useFilters="true" 
+ quiet="true" 
+          next="Prepare Request" > 
+
+<graphx>-1</graphx>
+<graphy>-1</graphy>
+<listenPort>8002</listenPort>
+<basePath>/</basePath>
+<bindOnly>false</bindOnly>
+<outputAsObject>false</outputAsObject>
+<onExceptionStep>fail</onExceptionStep>
+<useSSL>false</useSSL>
+
+      <!-- Filters -->
+      <Filter type="com.itko.lisa.ext.filter.VseHttpHeaderFilter">
+        <valueToFilterKey>lisa.HTTP/S Listen.rsp</valueToFilterKey>
+      <httpHeader>HTTP-Version</httpHeader>
+      <prop>flHttpVersion</prop>
+      </Filter>
+
+      <Filter type="com.itko.lisa.ext.filter.VseRequestBodyFilter">
+        <valueToFilterKey>lisa.HTTP/S Listen.rsp</valueToFilterKey>
+      <prop>flSoapRequest</prop>
+      </Filter>
+
+      <Filter type="com.itko.lisa.ext.filter.VseRequestURIFilter">
+        <valueToFilterKey>lisa.HTTP/S Listen.rsp</valueToFilterKey>
+      <prop>flRequestURI</prop>
+      </Filter>
+
+
+      <!-- Result Elements -->
+<CheckResult assertTrue="false" name="Assert104" type="com.itko.lisa.test.CheckResultPropRegEx">
+<log>Assert [Assert104] fired false of type Property Value Expression</log>
+<then>Prepare Response-filter</then>
+<valueToAssertKey></valueToAssertKey>
+        <prop>flHttpVersion</prop>
+        <param>1.0</param>
+</CheckResult>
+
+    </Node>
+
+
+    <Node name="Prepare Request" log=""
+          type="com.itko.lisa.utils.ParseTextContentNode" 
+          version="1" 
+          think="0-0" 
+ useFilters="true" 
+ quiet="true" 
+          next="Response Selection" > 
+
+<graphx>-1</graphx>
+<graphy>-1</graphy>
+<text>e3tsaXNhLkhUVFAvUyBMaXN0ZW4ucnNwfX0=</text>
+<propKey></propKey>
+    </Node>
+
+
+    <Node name="Response Selection" log=""
+          type="com.itko.lisa.vse.stateful.ConversationalStep" 
+          version="1" 
+          think="0-0" 
+ useFilters="true" 
+ quiet="true" 
+          next="Prepare Response" > 
+
+<graphx>-1</graphx>
+<graphy>-1</graphy>
+<traffic>rr2si-merge</traffic>
+<requestPropertyName>lisa.Prepare Request.rsp</requestPropertyName>
+<outputAsObject>false</outputAsObject>
+<onExceptionStep>fail</onExceptionStep>
+    </Node>
+
+
+    <Node name="Prepare Response" log=""
+          type="com.itko.lisa.utils.ParseTextContentNode" 
+          version="1" 
+          think="0-0" 
+ useFilters="true" 
+ quiet="true" 
+          next="HTTP/S Respond" > 
+
+<graphx>-1</graphx>
+<graphy>-1</graphy>
+<text>e3tsaXNhLlJlc3BvbnNlIFNlbGVjdGlvbi5yc3B9fQ==</text>
+<propKey></propKey>
+    </Node>
+
+
+    <Node name="HTTP/S Respond" log=""
+          type="com.itko.lisa.vse.stateful.protocol.http.HttpRespondStep" 
+          version="1" 
+          think="0-0" 
+ useFilters="true" 
+ quiet="false" 
+          next="HTTP/S Listen" > 
+
+<graphx>-1</graphx>
+<graphy>-1</graphy>
+<responseList>lisa.Prepare Response.rsp</responseList>
+<onExceptionStep>fail</onExceptionStep>
+    </Node>
+
+
+    <Node name="Prepare Response-filter" log=""
+          type="com.itko.lisa.utils.ParseTextContentNode" 
+          version="1" 
+          think="0-0" 
+ useFilters="true" 
+ quiet="true" 
+          next="HTTP/S Respond - filter" > 
+
+<graphx>-1</graphx>
+<graphy>-1</graphy>
+<text>SFRUUCBGaWx0ZXIgV29ya2Vk</text>
+<propKey></propKey>
+    </Node>
+
+
+    <Node name="HTTP/S Respond - filter" log=""
+          type="com.itko.lisa.vse.stateful.protocol.http.HttpRespondStep" 
+          version="1" 
+          think="0-0" 
+ useFilters="true" 
+ quiet="false" 
+          next="HTTP/S Listen" > 
+
+<graphx>-1</graphx>
+<graphy>-1</graphy>
+<responseList>lisa.Prepare Response.rsp</responseList>
+<onExceptionStep>fail</onExceptionStep>
+    </Node>
+
+
+    <Node name="end" log=""
+          type="com.itko.lisa.test.NormalEnd" 
+          version="1" 
+          think="0-0" 
+ useFilters="true" 
+ quiet="true" 
+          next="fail" > 
+
+<graphx>-1</graphx>
+<graphy>-1</graphy>
+    </Node>
+
+
+    <Node name="fail" log=""
+          type="com.itko.lisa.test.Abend" 
+          version="1" 
+          think="0-0" 
+ useFilters="true" 
+ quiet="true" 
+          next="unknown" > 
+
+<graphx>-1</graphx>
+<graphy>-1</graphy>
+    </Node>
+
+
+</VSModel>

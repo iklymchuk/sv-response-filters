@@ -1,0 +1,3 @@
+<project name=“lisaext-vse-response-filters" default="dist" basedir=".">
+	<import file="../itkoext-build/ant-common-main.xml" />
+</project>
